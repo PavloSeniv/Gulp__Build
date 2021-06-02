@@ -1,0 +1,25 @@
+h1 {
+  font-size: 25px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+p {
+  color: blue;
+}
+
+body {
+  background-color: aqua;
+}
+
+@media (max-width: 757px) {
+  p {
+    color: pink;
+  }
+}
+
+@media (max-width: 500px) {
+  p {
+    color: yellow;
+  }
+}

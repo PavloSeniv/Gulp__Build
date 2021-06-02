@@ -1,0 +1,25 @@
+h1 {
+    font-size: 25px;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+@media (max-width: 757px) {
+    p {
+        color: pink;
+    }
+
+}
+
+p {
+    color: blue;
+}
+
+@media (max-width: 500px) {
+    p {
+        color: yellow;
+    }
+
+}
+
+@@include('styleFooter.css')
