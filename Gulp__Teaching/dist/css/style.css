@@ -1,3 +1,5 @@
+@import "fonts";
+
 h1 {
   font-size: 25px;
   display: flex;
@@ -8,8 +10,11 @@ p {
   color: blue;
 }
 
-body {
-  background-color: aqua;
+@
+@include('styleFooter.css')
+
+section {
+  background: url("../img/IMG_3467.JPG") 0 0 no-repeat;
 }
 
 @media (max-width: 757px) {
@@ -22,4 +27,26 @@ body {
   p {
     color: yellow;
   }
+}
+@supports (-webkit-appearance:none){
+@
+@include('styleFooter.css')
+
+section{background:url("../img/IMG_3467..webp") 0 0 no-repeat}
+}
+
+ @media (max-width: 757px){
+
+@supports (-webkit-appearance:none){
+
+}
+
+}
+
+ @media (max-width: 500px){
+
+@supports (-webkit-appearance:none){
+
+}
+
 }

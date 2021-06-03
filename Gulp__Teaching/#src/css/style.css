@@ -1,3 +1,8 @@
+
+/*
+@import "fonts";
+*/
+
 h1 {
     font-size: 25px;
     display: flex;
@@ -23,3 +28,7 @@ p {
 }
 
 @@include('styleFooter.css')
+
+section {
+    background: url("../img/IMG_3467.JPG") 0 0 no-repeat;
+}
