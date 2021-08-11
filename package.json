@@ -1,7 +1,7 @@
 {
-  "name": "Gulp__Build",
+  "name": "gulp-build",
   "version": "1.0.0",
-  "description": "Build gulp",
+  "description": "My gulp build for project",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
