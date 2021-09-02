@@ -325,6 +325,7 @@ let build = gulp.series(
   ),
   fontsStyle
 ); //тут присутній варіант паралельного запису шрифтів та відео
+
 let watch = gulp.parallel(build, watchFiles, browserSync);
 
 exports.libsJs = libsJs;
