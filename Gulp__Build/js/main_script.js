@@ -106,3 +106,7 @@ if (menuLinks.length > 0) {
         }
     }
 }
+
+$(function(){
+
+});

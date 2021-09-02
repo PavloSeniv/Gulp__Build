@@ -8,17 +8,21 @@
     font-style: #{$style};
   }
 }
+@import "_fonts";
+//@import "_libs";
+//@import "_media";
+//@import "_nullstyle";
+@import "_vars";
 
-@import "fonts";
-@import "../css/nullstyle";
-@import "../css/root";
+@import "../css/_nullstyle";
+@import "../css/_root";
 
-@import "../css/style_header";
+@import "../css/_style_header";
 
-@import "../css/style_footer";
+@import "../css/_style_footer";
 
 /*-------- index Start -------*/
-@import "../css/slider_home";
+@import "../css/_slider_home";
 @import "../css/style";
 /*-------- index End -------*/
 
