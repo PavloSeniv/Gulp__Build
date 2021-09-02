@@ -76,6 +76,7 @@ if (iconMenu) {
 }
 
 // Прокрутка при кліку
+// const menuLinks = document.querySelectorAll(".menu__link[data-goto]");
 const menuLinks = document.querySelectorAll('[data-goto]');
 if (menuLinks.length > 0) {
     menuLinks.forEach(menuLink => {
