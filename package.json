@@ -26,6 +26,11 @@
     "gulp-uglify-es": "^2.0.0",
     "gulp-webp": "^4.0.1",
     "gulp-webp-css": "^1.1.0",
-    "gulp-webp-html": "^1.0.2"
+    "gulp-webp-html": "^1.0.2",
+    "normalize.css": "^8.0.1",
+    "gulp-concat": "^2.6.1"
+  },
+  "dependencies": {
+    "aos": "^2.3.4"
   }
 }
