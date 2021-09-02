@@ -2,6 +2,6 @@
 
 @@include('_header_menu_burger.js')
 
-$(function(){
+// $(function(){
 
-});
+// });
