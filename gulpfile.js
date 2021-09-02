@@ -61,7 +61,7 @@ let { src, dest } = require("gulp"),
   autoprefixer = require("gulp-autoprefixer"),
   group_media = require("gulp-group-css-media-queries"), // Для збирання всіх медіа запитів в кінець файлу
   clean_css = require("gulp-clean-css"), //Очищення та зжимання css файлу
-  rename = require("gulp-rename"), //Для перейменування css файлу(переважно .min.css
+  rename = require("gulp-rename"), //Для перейменування css файлу(переважно .min.css)
   uglify = require("gulp-uglify-es").default, //Оптимізація js
   imagemin = require("gulp-imagemin"), //Оптимізація зображень
   webp = require("gulp-webp"), //Для перетворення зображень у формат webp
@@ -70,7 +70,8 @@ let { src, dest } = require("gulp"),
   svgSprite = require("gulp-svg-sprite"), //Створення svg спрайтів
   ttf2woff = require("gulp-ttf2woff"), //Конвертація шрифтів
   ttf2woff2 = require("gulp-ttf2woff2"), //Конвертація шрифтів
-  fonter = require("gulp-fonter"); //Конвертація шрифтів з otf формату
+  fonter = require("gulp-fonter"), //Конвертація шрифтів з otf формату
+  concat = require("gulp-concat"); // Об'єдання файлів
 
 //Функція для плагіна browserSync
 function browserSync(params) {
@@ -195,9 +196,9 @@ gulp.task("svgSprite", function () {
 
 // Для автоматичного запису шрифтів в css
 function fontsStyle(params) {
-  let file_content = fs.readFileSync(source_folder + "/style/scss/fonts.scss");
+  let file_content = fs.readFileSync(source_folder + "/style/scss/_fonts.scss");
   if (file_content == "") {
-    fs.writeFile(source_folder + "/style/scss/fonts.scss", "", callBack);
+    fs.writeFile(source_folder + "/style/scss/_fonts.scss", "", callBack);
     return fs.readdir(path.build.fonts, function (err, items) {
       if (items) {
         let c_fontname;
@@ -206,7 +207,7 @@ function fontsStyle(params) {
           fontname = fontname[0];
           if (c_fontname != fontname) {
             fs.appendFile(
-              source_folder + "/style/scss/fonts.scss",
+              source_folder + "/style/scss/_fonts.scss",
               '@include font("' +
                 fontname +
                 '", "' +
@@ -264,11 +265,28 @@ function pluginsPhp(params) {
 }
 
 function pdf(params) {
-  return src(path.src.pdf)
-    .pipe(dest(path.build.pdf))
+  return src(path.src.pdf).pipe(dest(path.build.pdf));
+}
+
+function libsCss(params) {
+  return gulp
+    .src([
+      "node_modules/normalize.css/normalize.css",
+      "node_modules/aos/dist/aos.css",
+    ])
+    .pipe(concat("_libs.scss"))
+    .pipe(gulp.dest("#src/style/scss"))
     .pipe(browsersync.stream());
 }
 
+function libsJs(params) {
+  return gulp
+    .src(["node_modules/aos/dist/aos.js"])
+    .pipe(concat("libs.js"))
+    .pipe(uglify())
+    .pipe(gulp.dest("#src/plugins/libs"))
+    .pipe(browsersync.stream());
+}
 //Слідкування за файлами в реальному часі
 function watchFiles(params) {
   gulp.watch([path.watch.html], html); //Для html
@@ -280,6 +298,8 @@ function watchFiles(params) {
   gulp.watch([path.watch.pluginsCss], pluginsCss); // Для plugins .css file
   gulp.watch([path.watch.pluginsPhp], pluginsPhp); // Для plugins .php file
   gulp.watch([path.watch.pdf], pdf); // Для plugins .css file
+  gulp.watch([path.watch.pdf], libsCss); // Для node_modules .css file
+  gulp.watch([path.watch.pdf], libsJs); // Для node_modules .js file
 }
 
 function clean(params) {
@@ -299,12 +319,16 @@ let build = gulp.series(
     pluginsJs,
     pluginsCss,
     pluginsPhp,
-    pdf
+    pdf,
+    libsCss,
+    libsJs
   ),
   fontsStyle
 ); //тут присутній варіант паралельного запису шрифтів та відео
 let watch = gulp.parallel(build, watchFiles, browserSync);
 
+exports.libsJs = libsJs;
+exports.libsCss = libsCss;
 exports.pdf = pdf;
 exports.pluginsPhp = pluginsPhp;
 exports.pluginsCss = pluginsCss;
